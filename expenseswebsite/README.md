@@ -21,7 +21,7 @@ This Django project offers a finance dashboard where users can efficiently manag
 
 ### Tools:
 - Git (Version Control) 🛠️
-
+- Heroku (Deployment) 🚀
 
 ## Features
 
@@ -32,6 +32,7 @@ The Finance Dashboard Django Project encompasses a wide range of features to emp
 - **Installing and Setting up a Postgres Database**: Use PostgreSQL for smooth data management.
 - **Setting up Static Assets**: Configure HTML, CSS, and JS files for frontend.
 - **Setting up Apps, Views, URLs, Templates**: Organize project structure and render pages effectively.
+- **Heroku Deployment**: Deploy your application to Heroku for online hosting.
 - **Ajax User Registration**: Enhance user registration with Ajax for interactivity.
 - **Ajax Validation**: Validate usernames and email addresses in real-time.
 - **Password Toggle Feature**: Allow users to toggle password visibility for convenience.
@@ -118,4 +119,4 @@ This project is licensed under the [MIT License](LICENSE).
 ---
 
 Created by Lucas Fortunato ✨
-  
+   
