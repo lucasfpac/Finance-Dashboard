@@ -7,7 +7,16 @@
         <div class="card-title text-center py-3">
           <h4>Register for a free account</h4>
         </div>
-        <form class="vstack gap-2 text-center" action="" method="post">
+
+
+
+
+
+        <form class="vstack gap-2 text-center" action="{% url 'register' %}" method="post">
+          {% csrf_token %}
+
+          {% include 'partials/_messages.html'%}
+
           <div class="form-group">
             <input
               type="text"
@@ -48,7 +57,7 @@
 
           <input
             type="submit"
-            value="Register"
+            value=""
             class="btn btn-block btn-primary submit-btn"
           />
         </form>
