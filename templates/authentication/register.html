@@ -7,11 +7,6 @@
         <div class="card-title text-center py-3">
           <h4>Register for a free account</h4>
         </div>
-
-
-
-
-
         <form class="vstack gap-2 text-center" action="{% url 'register' %}" method="post">
           {% csrf_token %}
 
@@ -24,6 +19,8 @@
               id="usernameField"
               placeholder="Username"
               class="form-control form-control-sm text-center"
+              value="{{fieldValues.username}}"
+
               required
             />
             <div class="username-invalid-feedback" style="display:none"><p></p></div>
@@ -35,6 +32,7 @@
               id="emailField"
               placeholder="Email"
               class="form-control form-control-sm text-center"
+              value="{{fieldValues.email}}"
               required
             />
             <div class="email-invalid-feedback" style="display:none"><p></p></div>
@@ -57,7 +55,7 @@
 
           <input
             type="submit"
-            value=""
+            value="Register"
             class="btn btn-block btn-primary submit-btn"
           />
         </form>
