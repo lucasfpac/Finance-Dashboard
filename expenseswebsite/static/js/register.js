@@ -85,7 +85,7 @@ emailField.addEventListener("keyup", (e) =>{
                 emailField.classList.add("is-valid");
                 emailFeedBackArea.style.display = "block";
                 emailFeedBackArea.style.color = "green";
-                emailFeedBackArea.innerHTML = `<p>email Available</p>`;
+                emailFeedBackArea.innerHTML = `<p>Email available</p>`;
             }
             
             });

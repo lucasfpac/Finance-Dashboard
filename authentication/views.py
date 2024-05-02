@@ -5,10 +5,10 @@ from django.http import JsonResponse
 from django.contrib.auth.models import User
 from validate_email import validate_email
 from django.contrib import messages
+from django.core.mail import EmailMessage
 
 # Create your views here.
 
-   
 class UsernameValidationView(View):
     def post(self, request):
         data = json.loads(request.body)
@@ -57,7 +57,19 @@ class RegistrationView(View):
                     return render(request, 'authentication/register.html', context)
                 user = User.objects.create_user(username=username, email=email)
                 user.set_password(password)
+                user.is_active = True #change it to falso after set email for validation
                 user.save()
+                
+                # email_subject='Activate your account'
+                # email_body='Test Body'
+                # email = EmailMessage(
+                #     email_subject,
+                #     email_body,
+                #     'noreply@exemple.com',
+                #     [email],
+                # )
+                
+                # email.send(fail_silently=False)
                 messages.success(request,"Account successfully created")
                 return render(request, 'authentication/register.html')
             
