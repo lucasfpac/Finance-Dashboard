@@ -28,7 +28,8 @@ SECRET_KEY = 'django-insecure-f9ejf9mo&2_cum6=$rk@5&o@eqip_4aua!@!2z%1!j2&1ku1u^
 DEBUG = True
 
 ALLOWED_HOSTS = ['0.0.0.0',
-                 'finance-dashboard-vx0k.onrender.com']
+                 'finance-dashboard-vx0k.onrender.com',
+                 '127.0.0.1']
 
 
 # Application definition
@@ -40,7 +41,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'expenses'
+    'expenses',
+    'gmailapi_backend'
 ]
 
 MIDDLEWARE = [
@@ -139,10 +141,11 @@ MESSAGE_TAGS = {
     messages.ERROR : 'danger'
 }
 
-# email stuff
+# Email
+EMAIL_USE_TLS = True
 EMAIL_HOST = os.environ.get('EMAIL_HOST')
 EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
-EMAIL_USE_TLS = True
-DEFAULT_FROM_EMAIL = os.environ.get('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = 'bzyp runq ushu maok'
 EMAIL_PORT = 587
-EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+
