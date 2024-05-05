@@ -13,7 +13,8 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 from pathlib import Path
 import os
 from django.contrib import messages
-
+from dotenv import load_dotenv
+load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -82,16 +83,28 @@ WSGI_APPLICATION = 'expenseswebsite.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': os.environ.get('DB_NAME'),
+#         'USER': os.environ.get('DB_USER'),
+#         'PASSWORD': os.environ.get('DB_PASSWORD'),
+#         'HOST': os.environ.get('DB_HOST'),
+#         'PORT': os.environ.get('DB_PORT'),
+#     }
+# }
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.environ.get('DB_NAME'),
-        'USER': os.environ.get('DB_USER'),
-        'PASSWORD': os.environ.get('DB_PASSWORD'),
-        'HOST': os.environ.get('DB_HOST'),
-        'PORT': os.environ.get('DB_PORT'),
+        'NAME': 'incomeexpensesdb',
+        'USER': 'postgres',
+        'PASSWORD': '',
+        'HOST': 'localhost',
+        'PORT': '5431',
     }
 }
+
 
 
 
@@ -159,3 +172,13 @@ EMAIL_HOST_PASSWORD = 'bzyp runq ushu maok'
 EMAIL_PORT = 587
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
+import os
+
+# Print the value of each environment variable
+print("DB_NAME:", os.environ.get('DB_NAME'))
+print("DB_USER:", os.environ.get('DB_USER'))
+print("DB_PASSWORD:", os.environ.get('DB_PASSWORD'))
+print("DB_HOST:", os.environ.get('DB_HOST'))
+print("DB_PORT:", os.environ.get('DB_PORT'))
+
+# Similarly, print other environment variables like EMAIL_HOST, EMAIL_PORT, etc.

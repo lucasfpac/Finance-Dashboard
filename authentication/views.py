@@ -8,10 +8,10 @@ from django.contrib import messages
 from django.core.mail import EmailMessage
 
 from django.urls import reverse
-from django.utils.encoding import force_bytes, DjangoUnicodeDecodeError #force_text
+from django.utils.encoding import force_bytes, force_str, DjangoUnicodeDecodeError #force_text
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.contrib.sites.shortcuts import get_current_site
-from .utils import token_generator
+from .utils import account_activation_token
 
 #test email
 from django.core.mail import send_mail
@@ -42,11 +42,7 @@ class EmailValidationView(View):
         if User.objects.filter(email=email).exists():
             return JsonResponse({'email_error': 'Sorry email already in use, plase choose another one'}, status=409)
         return JsonResponse({'email_valid': True})
-    
-class LoginView(View):
-    def get(self, request):
-        return render(request, 'authentication/login.html')
-    
+        
 class RegistrationView(View):
     def get(self, request):
         return render(request, 'authentication/register.html')
@@ -69,28 +65,54 @@ class RegistrationView(View):
                 user.set_password(password)
                 user.is_active = False
                 user.save()
-                                
-                uidb64 = urlsafe_base64_encode(force_bytes(user.pk))
-                domain = get_current_site(request).domain
-                link =  reverse('activate', kwargs={'uidb64':uidb64 , 'token': token_generator.make_token(user)})
-                
-                activate_url = 'http://'+domain+link
+                current_site = get_current_site(request)
+                email_body = {
+                    'user': user,
+                    'domain': current_site.domain,
+                    'uid': urlsafe_base64_encode(force_bytes(user.pk)),
+                    'token': account_activation_token.make_token(user),
+                }
 
-                email_subject='Account activation'
-                email_body='Hi ' + user.username + ' Please use this link to verify your Account: \n \n'+ activate_url
+                link = reverse('activate', kwargs={'uidb64': email_body['uid'], 'token': email_body['token']})
+
+                email_subject = 'Activate your account'
+
+                activate_url = 'http://'+current_site.domain+link
+
                 email = EmailMessage(
                     email_subject,
-                    email_body,
-                    'noreply@exemple.com',
+                    'Hi '+user.username + ', Please the link below to activate your account \n'+activate_url,
+                    'noreply@semycolon.com',
                     [email],
                 )
-                
                 email.send(fail_silently=False)
-                messages.success(request,"Account successfully created")
+                messages.success(request, 'Account successfully created')
                 return render(request, 'authentication/register.html')
-            
-        return render(request, 'authentication/register.html')
+
 
 class VerificationView(View):
     def get(self, request, uidb64, token):
+        try:
+            id = force_str(urlsafe_base64_decode(uidb64))
+            user = User.objects.get(pk=id)
+
+            if not account_activation_token.check_token(user, token):
+                return redirect('login'+'?message='+'User already activated')
+
+            if user.is_active:
+                return redirect('login')
+            user.is_active = True
+            user.save()
+
+            messages.success(request, 'Account activated successfully')
+            return redirect('login')
+
+        except Exception as ex:
+            pass
+
         return redirect('login')
+    
+class LoginView(View):
+    def get(self, request):
+        return render(request, 'authentication/login.html')    
+    
