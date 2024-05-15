@@ -35,7 +35,7 @@ usernameField.addEventListener("keyup", (e) => {
     fetch("/authentication/validate-username", {
         body: JSON.stringify({ username: usernameVal }),
         method: "POST",
-    })
+        })
         .then((res) => res.json())
         .then((data) => {
             console.log("data", data);
