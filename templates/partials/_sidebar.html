@@ -62,25 +62,6 @@
               </form>
             </a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link d-flex align-items-center gap-2" style="cursor: pointer" onclick="event.preventDefault(); document.getElementById('account-form').submit();">
-              <svg class="bi"><use xlink:href="#people"/></svg>
-              Account
-            </a>
-            <form id="account-form" action="{% url 'logout' %}" method="post" style="display: none;">
-              {% csrf_token %}
-            </form>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link d-flex align-items-center gap-2" style="cursor: pointer" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-              <svg class="bi"><use xlink:href="#door-closed"/></svg>
-              Logout
-            </a>
-            <form id="logout-form" action="{% url 'logout' %}" method="post" style="display: none;">
-              {% csrf_token %}
-            </form>
-          </li>
-          
         </ul>
       </div>
     </div>
