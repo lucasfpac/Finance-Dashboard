@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'expenses',
+    'incomes',
     'gmailapi_backend',
     'userpreferences'
 ]

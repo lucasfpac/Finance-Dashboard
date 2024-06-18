@@ -5,6 +5,8 @@ const emailField = document.querySelector('#emailField');
 const emailFeedBackArea = document.querySelector(".email-invalid-feedback");
 
 const passwordField = document.querySelector('#passwordField');
+const passwordField2 = document.querySelector('#passwordField2');
+
 const passwordToggle = document.querySelector('.password-toggle')
 
 const submitBtn = document.querySelector('.submit-btn')
@@ -14,9 +16,11 @@ const handleToggleInput=(e) =>{
     if(passwordToggle.textContent==='SHOW'){
         passwordToggle.textContent = "HIDE";
         passwordField.setAttribute("type", "text")
+        passwordField2.setAttribute("type", "text")
     }else{
         passwordToggle.textContent = "SHOW"
         passwordField.setAttribute("type", "password")
+        passwordField2.setAttribute("type", "password")
     }
 }
 

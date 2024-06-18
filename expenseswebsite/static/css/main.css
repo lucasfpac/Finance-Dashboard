@@ -75,3 +75,7 @@
   display: block !important;
 }
 
+.dropdown-menu {
+  top: 100%;
+  right: 0;
+}

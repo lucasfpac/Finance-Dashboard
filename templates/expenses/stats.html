@@ -1,0 +1,38 @@
+{% extends "base.html" %} {% block content %}
+{% load static %}
+
+<div class="container mt-4">
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="">Expenses summary</a></li>
+      <li class="breadcrumb-item active" aria-current="page">
+        Summary
+      </li>
+    </ol>
+  </nav>
+</div>
+{% include 'partials/_messages.html' %} 
+<div>
+    <canvas id="myChart"></canvas>
+  </div>
+<!-- <div class="container">
+  <div class="row">
+    <div class="col-md-8"></div>
+    <div class="col-md-4">
+      <div class="form-group">
+        <input type="text" class="form-control" id="searchField" placeholder="search">
+      </div>
+    </div>
+  </div>
+  <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-4">
+    <a href="{% url 'add-expense'%}" class="btn btn-outline-primary"> Add Expense</a>
+  </div> -->
+ 
+
+  
+</div>
+
+<script src="{% static 'js/stats.js' %}"></script>
+
+{% endblock content %}
+ 
