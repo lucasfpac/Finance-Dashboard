@@ -87,6 +87,7 @@ WSGI_APPLICATION = 'expenseswebsite.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
+# Run local or external database set on .env file
 # DATABASES = {
 #     'default': {
 #         'ENGINE': 'django.db.backends.postgresql',
@@ -98,17 +99,7 @@ WSGI_APPLICATION = 'expenseswebsite.wsgi.application'
 #     }
 # }
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': 'incomeexpensesdb',
-#         'USER': 'postgres',
-#         'PASSWORD': '',
-#         'HOST': 'localhost',
-#         'PORT': '5431',
-#     }
-# }
-
+# Run Internal Database Render
 DATABASES = {
     'default': dj_database_url.config(default=os.environ.get('DATABASE_URL'))
 }

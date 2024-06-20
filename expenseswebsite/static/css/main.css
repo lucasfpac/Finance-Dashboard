@@ -79,3 +79,10 @@
   top: 100%;
   right: 0;
 }
+
+@media (max-width: 768px) {
+  .dropdown-menu {
+      right: 0;
+      left: auto;
+  }
+}
