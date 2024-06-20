@@ -16,8 +16,8 @@ def index(request):
             currency_data.append({'name': k, 'value': v})
 
     exists = UserPreference.objects.filter(user=request.user).exists()
-    # user_preferences = None
-    user_preferences = '"EUR": "Euro"'
+    user_preferences = None
+    # user_preferences = '"EUR": "Euro"'
     if exists:
         user_preferences = UserPreference.objects.get(user=request.user)
 
