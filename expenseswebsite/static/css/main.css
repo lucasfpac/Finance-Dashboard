@@ -80,9 +80,8 @@
   right: 0;
 }
 
-@media (max-width: 768px) {
-  .dropdown-menu {
-      right: 0;
-      left: auto;
-  }
+.dropdown-menu-end {
+  right: 0;
+  left: auto;
 }
+

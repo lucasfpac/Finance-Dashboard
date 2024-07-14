@@ -28,7 +28,8 @@ searchField.addEventListener('keyup', (e)=>{
                 data.forEach((item)=>{
                     tableBody.innerHTML+=`
                     <tr>
-                        <td>${item.amount}.0</td>
+                        <td>${item.amount}</td>
+                        <td>${item.wo}</td>
                         <td>${item.description}</td>
                         <td>${item.source}</td>
                         <td>${item.date}</td>

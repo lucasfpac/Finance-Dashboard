@@ -30,6 +30,7 @@
       <thead>
         <tr>
           <th>Amount - {{currency}} </th>
+          <th>WO</th>
           <th>Description</th>
           <th>source</th>
           <th>Date</th>
@@ -40,6 +41,7 @@
         {% for income in page_obj %}
         <tr>
           <td>{{income.amount}}</td>
+          <td>{{income.wo}}</td>
           <td>{{income.description}}</td>
           <td>{{income.source}}</td>
           <td>{{income.date}}</td>
@@ -60,6 +62,7 @@
       <thead>
         <tr>
           <th>Amount - {{currency}}</th>
+          <th>WO</th>
           <th>Description</th>
           <th>source</th>
           <th>Date</th>

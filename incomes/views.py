@@ -6,6 +6,7 @@ from userpreferences.models import UserPreference
 from django.contrib import messages
 import json
 from django.http import JsonResponse
+import datetime
 
 
 
@@ -37,6 +38,7 @@ def add_income(request):
         return render(request, 'incomes/add_income.html', context)
     
     if request.method=='POST':
+        wo = request.POST['wo']
         amount = request.POST['amount']
         if not amount:
             messages.error(request, 'Amount is required')
@@ -53,7 +55,7 @@ def add_income(request):
             messages.error(request, 'Date is required')
             return render(request, 'incomes/add_income.html', context)
         
-        Income.objects.create(owner=request.user, amount=amount, date=date,
+        Income.objects.create(owner=request.user, wo=wo, amount=amount, date=date,
                                     source=source, description=description)
 
         messages.success(request, 'Income saved successfully')
@@ -72,6 +74,7 @@ def edit_income(request, id):
     if request.method=='GET':
         return render(request, 'incomes/edit_income.html', context)
     if request.method=='POST':
+        wo = request.POST['wo']
         amount = request.POST['amount']
         if not amount:
             messages.error(request, 'Amount is required')
@@ -90,6 +93,7 @@ def edit_income(request, id):
         
         
         income.owner = request.user
+        income.wo = wo
         income.amount = amount
         income.date = date
         income.source = source
@@ -113,8 +117,37 @@ def search_income(request):
         search_str = json.loads(request.body).get('searchText')
         incomes = Income.objects.filter(
             amount__istartswith=search_str, owner = request.user) | Income.objects.filter(
+            wo__icontains=search_str, owner = request.user) | Income.objects.filter(
             date__istartswith=search_str, owner = request.user) | Income.objects.filter(
             description__icontains=search_str, owner = request.user) | Income.objects.filter(
-            source__icontains=search_str, owner = request.user)
+            source__icontains=search_str, owner = request.user) 
         data = incomes.values()
         return JsonResponse(list(data), safe=False)
+    
+def income_source_summary(request):
+    todays_date = datetime.date.today()
+    last_month = todays_date-datetime.timedelta(days=30*1)
+    incomes = Income.objects.filter(owner=request.user, date__gte=last_month, date__lte=todays_date)
+    finalrep = {}
+    
+    def get_source(income):
+        return income.source
+    
+    source_list = list(set(map(get_source, incomes)))
+    
+    def get_income_source_amount(source):
+        amount = 0
+        filtered_by_source = incomes.filter(source=source)
+        
+        for item in filtered_by_source:
+            amount += item.amount
+        
+        return amount
+    
+    for x in incomes:
+        for y in source_list:
+            finalrep[y] = get_income_source_amount(y)
+    return JsonResponse({'income_source_data': finalrep}, safe=False)
+    
+def incomes_stats_view(request):
+    return render(request, 'incomes/incomes_stats.html')    
